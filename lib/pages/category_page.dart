@@ -49,13 +49,14 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   @override
   void initState() {
     _getCategory();
+    _getGoodList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil().setWidth(250.0),
+      width: ScreenUtil().setWidth(180.0),
       decoration: BoxDecoration(
           border: Border(right: BorderSide(width: 1, color: Colors.black12))),
       child: ListView.builder(
@@ -83,7 +84,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         _getGoodList(categoryId: categoryId);
       },
       child: Container(
-        height: ScreenUtil().setHeight(130.0),
+        height: ScreenUtil().setHeight(100.0),
         padding: EdgeInsets.only(left: 10.0, top: 20.0),
         decoration: BoxDecoration(
 //            color: Colors.white,
@@ -93,7 +94,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
                 Border(bottom: BorderSide(width: 1, color: Colors.black12))),
         child: Text(
           list[index].mallCategoryName,
-          style: TextStyle(fontSize: ScreenUtil().setSp(36.0)),
+          style: TextStyle(fontSize: ScreenUtil().setSp(28.0)),
         ),
       ),
     );
@@ -132,7 +133,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
 //      setState(() {
 //        list = goodsList.data;
 //      });
-      print('分类商品列表：>>>>>>>>>>>>>>${list[0].goodsName}');
+//      print('分类商品列表：>>>>>>>>>>>>>>${list[0].goodsName}');
     });
   }
 }
@@ -151,8 +152,8 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
     return Container(child: Provide<ChildCategory>(
       builder: (context, child, childCategory) {
         return Container(
-          height: ScreenUtil().setHeight(110),
-          width: ScreenUtil().setWidth(830),
+          height: ScreenUtil().setHeight(80),
+          width: ScreenUtil().setWidth(570),
           decoration: BoxDecoration(
               color: Colors.white,
               border:
@@ -182,11 +183,12 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
         _getGoodList(item.mallSubId);
       },
       child: Container(
+        height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
         child: Text(
           item.mallSubName,
           style: TextStyle(
-              fontSize: ScreenUtil().setSp(33),
+              fontSize: ScreenUtil().setSp(28),
               color: isCheck ? Colors.pink : Colors.black),
         ),
       ),
@@ -251,7 +253,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       if (data.goodsList.length > 0) {
         return Expanded(
             child: Container(
-          width: ScreenUtil().setWidth(830),
+          width: ScreenUtil().setWidth(570),
           child: EasyRefresh(
             refreshFooter: ClassicsFooter(
                 key: _footerKey,
@@ -293,7 +295,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   // 商品图片
   Widget _goodsImage(List newList, index) {
     return Container(
-      width: ScreenUtil().setWidth(250),
+      width: ScreenUtil().setWidth(200),
       child: Image.network(newList[index].image),
     );
   }
@@ -361,7 +363,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   // 上拉加载更多的方法
   void _getMoreList() {
-    Provide.value<ChildCategory>(context).   addPage();
+    Provide.value<ChildCategory>(context).addPage();
     var data = {
       'categoryId': Provide.value<ChildCategory>(context).categoryId,
       'categorySubId': Provide.value<ChildCategory>(context).subId,
