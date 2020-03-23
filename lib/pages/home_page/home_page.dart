@@ -8,7 +8,6 @@ import 'leader_phone.dart';
 import 'shop_recommend.dart';
 import 'floor_content.dart';
 import 'floor_title.dart';
-import 'hotgoods_widget.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/routers/application.dart';
@@ -146,19 +145,19 @@ class _HomePageState extends State<HomePage> {
             Application.router.navigateTo(context, '/detail?id=${val['goodsId']}');
           },
           child: Container(
-            width: ScreenUtil().setWidth(530),
+            width: ScreenUtil().setWidth(372),
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.only(bottom: 3.0),
             child: Column(
               children: <Widget>[
-                Image.network(val['image'], width: ScreenUtil().setWidth(540),),
+                Image.network(val['image'], width: ScreenUtil().setWidth(375),),
                 Text(val['name'],
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color:Colors.pink,fontSize: ScreenUtil().setSp(35)),),
+                  style: TextStyle(color:Colors.pink,fontSize: ScreenUtil().setSp(26)),),
                 Row(
                   children: <Widget>[
-                    Text('¥${val['mallPrice']}', style: TextStyle(fontSize: ScreenUtil().setSp(37)),),
+                    Text('¥${val['mallPrice']}', style: TextStyle(fontSize: ScreenUtil().setSp(26)),),
                     Text('¥${val['price']}',style: TextStyle(color:Colors.black26,decoration: TextDecoration.lineThrough),),
                   ],
                 )
