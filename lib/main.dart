@@ -7,23 +7,25 @@ import 'package:flutter_shop/provide/category_goods_list.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter_shop/routers/routes.dart';
 import 'package:flutter_shop/routers/application.dart';
+import 'package:flutter_shop/provide/details_info.dart';
 
 void main() {
   var counter = Counter();
   var providers = Providers();
   var childCategory = ChildCategory();
   var categoryGoodsListProvide = CategoryGoodsListProvide();
+  var detailsInfoProvide = DetailsInfoProvide();
   providers
     ..provide(Provider<Counter>.value(counter))
     ..provide(Provider<ChildCategory>.value(childCategory))
-    ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide));
+    ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide))
+    ..provide(Provider<DetailsInfoProvide>.value(detailsInfoProvide));
   runApp(ProviderNode(child: MyApp(), providers: providers));
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     // 初始化Fluro
     final router = Router();
     Routes.configureRoutes(router);

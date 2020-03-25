@@ -30,14 +30,17 @@ class DetailsPage extends StatelessWidget {
           future: _getBackInfo(context),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Stack(
+              return Container(
+                  child: Column(
                 children: <Widget>[
-                  ListView(
-                    children: <Widget>[DetailsTopArea(), DetailsExplain(), DetailsTabbar()],
-                  ),
-                  Positioned(bottom: 0, left: 0, child: null)
+
+                      DetailsTopArea(),
+                      DetailsExplain(),
+                      DetailsTabBar()
+
+
                 ],
-              );
+              ));
             } else {
               return Text('加载中.......');
             }
@@ -47,7 +50,6 @@ class DetailsPage extends StatelessWidget {
 
   Future _getBackInfo(BuildContext context) async {
     await Provide.value<DetailsInfoProvide>(context).getGoodsInfo(goodsId);
-//    print('加载完成');
     return '加载完成';
   }
 }
