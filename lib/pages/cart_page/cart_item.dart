@@ -6,7 +6,6 @@ import 'package:flutter_shop/provide/cart.dart';
 import 'package:provide/provide.dart';
 
 class CartItem extends StatelessWidget {
-
   final CartInfoModel item;
 
   CartItem(this.item);
@@ -19,42 +18,41 @@ class CartItem extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(
-              bottom: BorderSide(width: 1, color: Colors.black12)
-          )
-      ),
+          border: Border(bottom: BorderSide(width: 1, color: Colors.black12))),
       child: Row(
         children: <Widget>[
-          _cartCheckButton(context,item),
+          _cartCheckButton(context, item),
           _cartImage(item),
           _cartGoodsName(item),
-          _cartPrice(context,item)
+          _cartPrice(context, item)
         ],
       ),
     );
   }
 
-
   // 多选按钮
-  Widget _cartCheckButton(context,item) {
+  Widget _cartCheckButton(context, item) {
+
+
+
     return Container(
-      child: Checkbox(value: item.isCheck,
+      child: Checkbox(
+          value: item.isCheck,
           activeColor: Colors.red,
           onChanged: (bool val) {
-        item.isCheck = val;
-        Provide.value<CartProvide>(context).changeCheckState(item);
+            item.isCheck = val;
+            Provide.value<CartProvide>(context).changeCheckState(item);
           }),
     );
   }
 
   // 商品图片
-  Widget _cartImage(item){
+  Widget _cartImage(item) {
     return Container(
       width: ScreenUtil().setWidth(150),
       padding: EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Colors.black12)
-      ),
+      decoration:
+          BoxDecoration(border: Border.all(width: 1, color: Colors.black12)),
       child: Image.network(item.images),
     );
   }
@@ -66,28 +64,24 @@ class CartItem extends StatelessWidget {
       padding: EdgeInsets.all(10),
       alignment: Alignment.topLeft,
       child: Column(
-        children: <Widget>[
-          Text(item.goodsName),
-          CartCount()
-        ],
+        children: <Widget>[Text(item.goodsName), CartCount()],
       ),
     );
   }
 
   //商品价格
-  Widget _cartPrice(context,item){
-
+  Widget _cartPrice(context, item) {
     return Container(
-      width:ScreenUtil().setWidth(150) ,
+      width: ScreenUtil().setWidth(150),
       alignment: Alignment.centerRight,
-
       child: Column(
         children: <Widget>[
           Text('￥${item.price}'),
           Container(
             child: InkWell(
-              onTap: (){
-                Provide.value<CartProvide>(context).deleteOneGoods(item.goodsId);
+              onTap: () {
+                Provide.value<CartProvide>(context)
+                    .deleteOneGoods(item.goodsId);
               },
               child: Icon(
                 Icons.delete_forever,
