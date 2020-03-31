@@ -3,12 +3,12 @@ import 'package:flutter_shop/model/cartInfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-
-List<CartInfoModel> cartList = [];
-
 /// 购物车provide
 class CartProvide with ChangeNotifier{
   String cartString="[]";
+
+   // 显示购物车列表
+  List<CartInfoModel> cartList =[];
 
   save(goodsId, goodsName, count, price, images)async{
     // 初始化SharedPreferences
@@ -39,7 +39,8 @@ class CartProvide with ChangeNotifier{
         'goodsName':goodsName,
         'count':count,
         'price':price,
-        'images':images
+        'images':images,
+        'isCheck':true
       };
       tempList.add(newGoods);
       cartList.add(CartInfoModel.fromJson(newGoods));
@@ -79,5 +80,46 @@ class CartProvide with ChangeNotifier{
     }
 
     notifyListeners();
+  }
+
+  // 删除单个商品
+  deleteOneGoods(String goodsId) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString())as List).cast();
+
+    int tempIndex = 0;
+    int delIndex =0;
+    tempList.forEach((item){
+      if(item['goodsId'] == goodsId){
+        delIndex = tempIndex;
+      }
+      tempIndex++;
+    });
+    tempList.removeAt(delIndex);
+    cartString = json.encode(tempList).toString();
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();
+  }
+
+  //修改选中状态
+  changeCheckState(CartInfoModel cartItem) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cartString=prefs.getString('cartInfo');
+    List<Map> tempList= (json.decode(cartString.toString()) as List).cast();
+    int tempIndex =0;
+    int changeIndex=0;
+    tempList.forEach((item){
+
+      if(item['goodsId']==cartItem.goodsId){
+        changeIndex=tempIndex;
+      }
+      tempIndex++;
+    });
+    tempList[changeIndex]=cartItem.toJson();
+    cartString= json.encode(tempList).toString();
+    prefs.setString('cartInfo', cartString);//
+    await getCartInfo();
+
   }
 }
