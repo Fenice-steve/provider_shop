@@ -75,6 +75,9 @@ class CartProvide with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // prefs.clear()清空键值对
     prefs.remove('cartInfo');
+    cartList=[];
+    allPrice=0;
+    allGoodsCount=0;
     print('清空完成---------------');
     notifyListeners();
   }
